@@ -33,7 +33,6 @@ public class CommandClient {
             for(JobseekerDTO i : javaJobseekers)
             {
                 System.out.println(i.JobseekerFirstName);
-                System.out.println(i.JobseekerMiddleName);
                 System.out.println(i.JobseekerLastName);
             }
             
