@@ -29,12 +29,7 @@ public class CommandClient {
                 System.out.println(i.JobseekerLastName);
             }
             */
-            ArrayList<JobseekerDTO> javaJobseekers = businessLayer.getUserByExperience("java", 10);
-            for(JobseekerDTO i : javaJobseekers)
-            {
-                System.out.println(i.JobseekerFirstName);
-                System.out.println(i.JobseekerLastName);
-            }
+            
             
         }
         catch (SQLException sqlException) 
