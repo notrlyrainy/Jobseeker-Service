@@ -21,13 +21,7 @@ public class CommandClient {
             }
             System.out.println();
             /*
-            ArrayList<JobseekerDTO> LiuJobseekers = businessLayer.getUsersByLastName("Liu");
-            for(JobseekerDTO i : LiuJobseekers)
-            {
-                System.out.println(i.JobseekerFirstName);
-                System.out.println(i.JobseekerMiddleName);
-                System.out.println(i.JobseekerLastName);
-            }
+            
             */
             
             
