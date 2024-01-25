@@ -1,8 +1,9 @@
+package com.jobseeker.jobseeker;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
 /**
  * Write a description of class SQLDataLayer here.
  *

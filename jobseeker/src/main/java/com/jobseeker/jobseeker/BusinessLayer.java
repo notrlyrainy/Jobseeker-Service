@@ -1,11 +1,13 @@
+package com.jobseeker.jobseeker;
+
 import java.sql.*;
 import java.util.*;
 
 public class BusinessLayer
 {
-    private MSSQLConnection msSqlcon;
-    private Connection con;
-    private DataLayer sqlDataLayer;
+    private final MSSQLConnection msSqlcon;
+    private final Connection con;
+    private final DataLayer sqlDataLayer;
     public BusinessLayer() throws SQLException, ClassNotFoundException
     {
         this.msSqlcon = new MSSQLConnection();

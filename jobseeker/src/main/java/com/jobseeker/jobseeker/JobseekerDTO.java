@@ -1,4 +1,6 @@
-import java.util.*;
+package com.jobseeker.jobseeker;
+
+import java.util.Date;
 public class JobseekerDTO
 {
     public int JobseekerID;
