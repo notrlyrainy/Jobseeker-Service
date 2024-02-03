@@ -49,4 +49,24 @@ public class DataLayer
         ResultSet resultSet = statement.executeQuery(sql2 + " where SkillsName like '%" + skill + "%' AND SkillsNumYearsExperience >" + years);
         return resultSet;
     }
+
+    public void addJobseeker(JobseekerDTO jobseeker) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "Insert into Jobseekers values(" + jobseeker.JobseekerID + ", " + jobseeker.JobseekerFirstName + ", " + jobseeker.JobseekerMiddleName +
+        ", " + jobseeker.JobseekerLastName + ", " + jobseeker.JobseekerAddress + ", " + jobseeker.JobseekerEmail + ", " + jobseeker.JobseekerPhoneNumber + 
+        ", " + jobseeker.JobseekerBirthDate + ", " + jobseeker.JobseekerCity + ", " + jobseeker.JobseekerState + ", " + jobseeker.JobseekerCountry + ")";
+        statement.executeQuery(sql);
+    }
+
+    public void updateJobseeker(int jobseekerID, JobseekerDTO jobseeker) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "UPDATE Jobseekers SET (JobseekerID = " + jobseeker.JobseekerID + ", JobseekerFirstName = " + jobseeker.JobseekerFirstName + 
+        ", JobseekerMiddleName = " + jobseeker.JobseekerMiddleName + ", JobseekerLastName = " + jobseeker.JobseekerLastName + ", JobseekerAddress = " + 
+        jobseeker.JobseekerAddress + ", JobseekerEmail = " + jobseeker.JobseekerEmail + ", JobseekerPhoneNumber = " + jobseeker.JobseekerPhoneNumber + 
+        ", JobseekerBirthDate = " + jobseeker.JobseekerBirthDate + ", JobseekerCity = " + jobseeker.JobseekerCity + ", JobseekerState = " + 
+        jobseeker.JobseekerState + ", JobseekerCountry = " + jobseeker.JobseekerCountry + ") WHERE JobseekerID = " + jobseekerID;
+        statement.executeQuery(sql);
+    }
 }

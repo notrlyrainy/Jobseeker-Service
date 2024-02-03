@@ -12,10 +12,10 @@ import java.sql.SQLException;
 public class MSSQLConnection
 {
     // instance variables - replace the example below with your own
-    private String server = "localhost"; // SQL Server instance name
-    private String database = "Users"; // Database name
-    private String username = "sa"; // Database username
-    private String password = "SQLProjectPassword"; // Database password
+    private String server = "jobportal1.database.windows.net"; // SQL Server instance name
+    private String database = "Jobseekers"; // Database name
+    private String username = "rajub"; // Database username
+    private String password = "Project@password"; // Database password
 
     private String connectionUrl = "jdbc:sqlserver://" + server + ";databaseName=" + database + ";user=" + username + ";password=" + password+";encrypt=false; trustServerCertificate=false;" ;
     

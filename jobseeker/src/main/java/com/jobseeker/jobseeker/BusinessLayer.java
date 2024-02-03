@@ -44,7 +44,7 @@ public class BusinessLayer
         }
         return jobseekersLiu;
     }
-    ArrayList<JobseekerDTO> getUserByExperience(String skill, int years)throws SQLException
+    public ArrayList<JobseekerDTO> getUserByExperience(String skill, int years)throws SQLException
     {
         ArrayList<JobseekerDTO> jobseekersExperience = new ArrayList<JobseekerDTO>();
         ResultSet resultSet = sqlDataLayer.getUsersByExperience(skill, years);
@@ -57,5 +57,13 @@ public class BusinessLayer
             
         }
         return jobseekersExperience;
+    }
+    public void addNewJobseeker(JobseekerDTO jobseeker) throws SQLException
+    {
+        sqlDataLayer.addJobseeker(jobseeker);
+    }
+    public void updateJobseeeker(int jobseekerID, JobseekerDTO jobseeker) throws SQLException
+    {
+        sqlDataLayer.updateJobseeker(jobseekerID, jobseeker);
     }
 }
