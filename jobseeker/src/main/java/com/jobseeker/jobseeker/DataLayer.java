@@ -57,19 +57,22 @@ public class DataLayer
         return resultSet;
     }
 
-    public void addJobseeker(JobseekerDTO jobseeker) throws SQLException
+    private String DateConverstionToSqlDate(java.util.Date date)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(jobseeker.JobseekerBirthDate);
+        calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        
+        return Integer.toString(year) +'-'+Integer.toString(month)+'-'+Integer.toString(day);
 
-        
+    }
+    public void addJobseeker(JobseekerDTO jobseeker) throws SQLException
+    {
+       
         String sql = "Insert into Jobseekers values(" + jobseeker.JobseekerID + ", '" + jobseeker.JobseekerFirstName + "', '" + jobseeker.JobseekerMiddleName +
         "', '" + jobseeker.JobseekerLastName + "', '" + jobseeker.JobseekerAddress + "', '" + jobseeker.JobseekerEmail + "', " + jobseeker.JobseekerPhoneNumber + 
-        ", '" + Integer.toString(year) +'-'+Integer.toString(month)+'-'+Integer.toString(day) + "', '" + jobseeker.JobseekerCity + "', '" + jobseeker.JobseekerState + "', '" + jobseeker.JobseekerCountry + "')";
+        ", '" + DateConverstionToSqlDate(jobseeker.JobseekerBirthDate)  + "', '" + jobseeker.JobseekerCity + "', '" + jobseeker.JobseekerState + "', '" + jobseeker.JobseekerCountry + "')";
         
 
         Statement statement = this.connection.createStatement();
