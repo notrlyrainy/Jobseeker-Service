@@ -59,7 +59,7 @@ public class DataLayer
 
     public void addJobseeker(JobseekerDTO jobseeker) throws SQLException
     {
-        /*Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(jobseeker.JobseekerBirthDate);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -70,13 +70,10 @@ public class DataLayer
         String sql = "Insert into Jobseekers values(" + jobseeker.JobseekerID + ", '" + jobseeker.JobseekerFirstName + "', '" + jobseeker.JobseekerMiddleName +
         "', '" + jobseeker.JobseekerLastName + "', '" + jobseeker.JobseekerAddress + "', '" + jobseeker.JobseekerEmail + "', " + jobseeker.JobseekerPhoneNumber + 
         ", '" + Integer.toString(year) +'-'+Integer.toString(month)+'-'+Integer.toString(day) + "', '" + jobseeker.JobseekerCity + "', '" + jobseeker.JobseekerState + "', '" + jobseeker.JobseekerCountry + "')";
-        */
+        
 
-        String sql = "Insert into Jobseekers values(" + jobseeker.JobseekerID + ", '" + jobseeker.JobseekerFirstName + "', '" + jobseeker.JobseekerMiddleName +
-        "', '" + jobseeker.JobseekerLastName + "', '" + jobseeker.JobseekerAddress + "', '" + jobseeker.JobseekerEmail + "', " + jobseeker.JobseekerPhoneNumber + 
-        ", '" + jobseeker.JobseekerBirthDate + "', '" + jobseeker.JobseekerCity + "', '" + jobseeker.JobseekerState + "', '" + jobseeker.JobseekerCountry + "')";
         Statement statement = this.connection.createStatement();
-        System.out.println(sql);
+        //System.out.println(sql);
         
         statement.execute(sql);
     }
