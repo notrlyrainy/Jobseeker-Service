@@ -19,16 +19,17 @@ public class BusinessLayer
     public ArrayList<JobseekerDTO> getAllUsers() throws SQLException
     {
         ArrayList<JobseekerDTO> jobseekers = new ArrayList<JobseekerDTO>();
-        ResultSet resultSet = sqlDataLayer.getAllUsers();
-        while (resultSet.next()) {
+        return sqlDataLayer.getAllUsersByDTO();
+        /*while (resultSet.next()) {
             JobseekerDTO jobseeker = new JobseekerDTO();
             jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName");
             jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
             jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName");
+            jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress");
             jobseekers.add(jobseeker);
-            
+
         }
-        return jobseekers;
+        return jobseekers;*/
     }
     public ArrayList<JobseekerDTO> getUsersByLastName(String lastName) throws SQLException
     {

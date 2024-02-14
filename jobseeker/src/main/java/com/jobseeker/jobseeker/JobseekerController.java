@@ -48,8 +48,9 @@ public class JobseekerController {
 		} 
 		//catch()
 		catch (SQLException ex) {
-			 throw new ResponseStatusException(
-           HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+           //HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
 		}
 		catch (ClassNotFoundException ex) {
 			ex.printStackTrace();

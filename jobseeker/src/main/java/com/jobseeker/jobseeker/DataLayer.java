@@ -1,16 +1,11 @@
 package com.jobseeker.jobseeker;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 /**
  * Write a description of class SQLDataLayer here.
  *
@@ -29,6 +24,21 @@ public class DataLayer
         this.connection = connection;
     }
     
+    public ArrayList<JobseekerDTO> getAllUsersByDTO() throws SQLException
+    {
+        ArrayList<JobseekerDTO> jobseekers = new ArrayList<JobseekerDTO>();
+        ResultSet resultSet = getAllUsers();
+        while (resultSet.next()) {
+            JobseekerDTO jobseeker = new JobseekerDTO();
+            jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName");
+            jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
+            jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName");
+            jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress");
+            jobseekers.add(jobseeker);
+
+        }
+        return jobseekers;
+    }
     public ResultSet getAllUsers() throws SQLException
     {
         Statement statement = this.connection.createStatement();

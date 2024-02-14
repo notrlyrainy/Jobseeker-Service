@@ -13,7 +13,7 @@ public class MSSQLConnection
 {
     // instance variables - replace the example below with your own
     private String server = "jobportal1.database.windows.net"; // SQL Server instance name
-    private String database = "Jobseekers"; // Database name
+    private String database = "jobportal"; // Database name
     private String username = "rajub"; // Database username
     private String password = "Project@password"; // Database password
 
