@@ -1,6 +1,7 @@
 package com.jobseeker.jobseeker;
 
 import java.util.Date;
+import java.awt.*;
 public class JobseekerDTO
 {
     public int JobseekerID;
@@ -14,6 +15,9 @@ public class JobseekerDTO
     public String JobseekerCity;
     public String JobseekerState;
     public String JobseekerCountry;
+    public Date JobseekerDateUpdated;
+    public Date JobseekerDateCreated;
+    public Image JobseekerProfilePicture;
     public JobseekerDTO()
     {
         

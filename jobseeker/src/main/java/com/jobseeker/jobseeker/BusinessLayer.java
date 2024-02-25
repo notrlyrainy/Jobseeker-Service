@@ -2,6 +2,8 @@ package com.jobseeker.jobseeker;
 
 import java.sql.*;
 import java.util.*;
+import java.awt.Image;
+
 
 public class BusinessLayer
 {
@@ -58,6 +60,15 @@ public class BusinessLayer
             
         }
         return jobseekersExperience;
+    }
+    public JobseekerDTO getUserByID(int ID) throws SQLException
+    {
+        JobseekerDTO jobseeker = sqlDataLayer.getUserByID(ID);
+        //jobseeker.JobseekerProfilePicture = resultSet.getBinaryStream("JobseekerProfilePicture"));
+
+
+        return jobseeker;
+
     }
     public void addNewJobseeker(JobseekerDTO jobseeker) throws SQLException
     {

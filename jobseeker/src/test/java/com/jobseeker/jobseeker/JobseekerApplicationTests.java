@@ -1,9 +1,10 @@
 package com.jobseeker.jobseeker;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +34,27 @@ class JobseekerApplicationTests {
 	}
 
 	@Test
+	void GetJobseekerByIDTest() {
+		JobseekerDTO jobseeker = new JobseekerDTO();
+		JobseekerDTO jobseekerDummyData = JobSeekerIDDummy();
+		String dateCreated = "";
+		try{
+			DataLayer sqlDataLayer = mock(DataLayer.class);
+			when(sqlDataLayer.getUserByID(anyInt())).thenReturn(jobseekerDummyData);
+
+			BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+			jobseeker = jobseekerBusinessLayer.getUserByID(10);
+			CalendarToDate converter = new CalendarToDate();
+			dateCreated = converter.dateConversionToSQLDate(jobseeker.JobseekerDateCreated);		
+			assertEquals("Raju", jobseeker.JobseekerFirstName, "verification success");
+
+		}
+		catch (SQLException ex) {}
+		catch (ClassNotFoundException ex) {}
+		
+	}
+
+	@Test
 	void TestingEmployeeData()
 	{
 		IEmployeeDataLayer employeeDataLayer = new DummyEmployeeDataLayer();
@@ -48,10 +70,21 @@ class JobseekerApplicationTests {
 		jobseekerDTO.JobseekerFirstName = "Zhihui";
 		jobseekerDTO.JobseekerMiddleName = "";
 		jobseekerDTO.JobseekerLastName = "Yang"; 
+		jobseekerDTO.JobseekerAddress = "Street Address";
 		jobseekerDTOs.add(jobseekerDTO);
 		return jobseekerDTOs;
 	}
-
+	JobseekerDTO JobSeekerIDDummy(){
+		JobseekerDTO jobseekerDTO = new JobseekerDTO();
+		jobseekerDTO.JobseekerID = 10;
+		jobseekerDTO.JobseekerFirstName = "Zhihui";
+		jobseekerDTO.JobseekerMiddleName = "";
+		jobseekerDTO.JobseekerLastName = "Yang"; 
+		jobseekerDTO.JobseekerAddress = "Street Address";
+		jobseekerDTO.JobseekerDateUpdated = new Date(2024, 2, 2);
+		jobseekerDTO.JobseekerDateCreated = new Date(2023, 11, 23);
+		return jobseekerDTO;
+	}
 
 	@Test
 	void WhenLastNameIsGevenExpectAJobSeeker2(){
@@ -72,5 +105,6 @@ class JobseekerApplicationTests {
 		
 
 	}
+
 
 }

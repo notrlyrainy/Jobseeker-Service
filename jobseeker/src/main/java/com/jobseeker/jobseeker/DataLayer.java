@@ -54,6 +54,19 @@ public class DataLayer
         ResultSet resultSet = statement.executeQuery(sql + " where JobseekerLastName like '%" + lastName + "%'");
         return resultSet;
     }
+    public JobseekerDTO getUserByID(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        JobseekerDTO jobseeker = new JobseekerDTO();
+        ResultSet resultSet = statement.executeQuery(sql + " where PK_JobseekerID = " + ID);
+        resultSet.next();
+        jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName");
+        jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
+        jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName");
+        jobseeker.JobseekerDateUpdated = resultSet.getDate("JobseekerDateUpdated");
+        jobseeker.JobseekerDateCreated = resultSet.getDate("JobseekerDateCreated");
+        return jobseeker;
+    }
     /*
      * I am looking to connect with JobSeekers 
      * who possess advanced Java skills

@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class JobseekerController {
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/GetAllJobSeekers")
 	public ArrayList<JobseekerDTO> GetAllJobSeekers() {
 		
@@ -75,4 +76,26 @@ public class JobseekerController {
 		return jobseekerDTOs;
 
 	}
+
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/GetJobseekerByID")
+		public JobseekerDTO getUserByID(@RequestParam int ID) throws SQLException
+		{
+			JobseekerDTO jobseeker = new JobseekerDTO();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				jobseeker = jobseekerBusinessLayer.getUserByID(ID);
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return jobseeker;
+
+		}
 }
