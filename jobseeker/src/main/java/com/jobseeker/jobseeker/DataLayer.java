@@ -30,12 +30,16 @@ public class DataLayer
         ResultSet resultSet = getAllUsers();
         while (resultSet.next()) {
             JobseekerDTO jobseeker = new JobseekerDTO();
-            jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName");
+            jobseeker.JobseekerID = resultSet.getInt("PK_JobseekerID");
+            jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName").trim();
             jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
-            jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName");
-            jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress");
+            jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName").trim();
+            jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress").trim();
+            jobseeker.JobseekerCity = resultSet.getString("JobseekerCity").trim();
+            jobseeker.JobseekerCountry = resultSet.getString("JobseekerCountry").trim();
+            jobseeker.JobseekerEmail = resultSet.getString("JobseekerEmail").trim();
+            jobseeker.JobseekerTitle = resultSet.getString("JobseekerTitle");
             jobseekers.add(jobseeker);
-
         }
         return jobseekers;
     }
@@ -57,14 +61,19 @@ public class DataLayer
     public JobseekerDTO getUserByID(int ID) throws SQLException
     {
         Statement statement = this.connection.createStatement();
-        JobseekerDTO jobseeker = new JobseekerDTO();
         ResultSet resultSet = statement.executeQuery(sql + " where PK_JobseekerID = " + ID);
         resultSet.next();
-        jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName");
-        jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
-        jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName");
-        jobseeker.JobseekerDateUpdated = resultSet.getDate("JobseekerDateUpdated");
-        jobseeker.JobseekerDateCreated = resultSet.getDate("JobseekerDateCreated");
+        JobseekerDTO jobseeker = new JobseekerDTO();
+            jobseeker.JobseekerID = resultSet.getInt("PK_JobseekerID");
+            jobseeker.JobseekerFirstName = resultSet.getString("JobseekerFirstName").trim();
+            jobseeker.JobseekerMiddleName = resultSet.getString("JobseekerMiddleName");
+            jobseeker.JobseekerLastName = resultSet.getString("JobseekerLastName").trim();
+            jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress").trim();
+            jobseeker.JobseekerPhoneNumber = resultSet.getString("JobseekerPhoneNumber").trim();
+            jobseeker.JobseekerCity = resultSet.getString("JobseekerCity").trim();
+            jobseeker.JobseekerCountry = resultSet.getString("JobseekerCountry").trim();
+            jobseeker.JobseekerEmail = resultSet.getString("JobseekerEmail").trim();
+            jobseeker.JobseekerTitle = resultSet.getString("JobseekerTitle");
         return jobseeker;
     }
     /*
@@ -77,6 +86,38 @@ public class DataLayer
         Statement statement = this.connection.createStatement();
         String sql2 = "Select * from Skills RIGHT JOIN Jobseekers ON Skills.FK_JobseekerID = Jobseekers.PK_JobseekerID";
         ResultSet resultSet = statement.executeQuery(sql2 + " where SkillsName like '%" + skill + "%' AND SkillsNumYearsExperience >" + years);
+        return resultSet;
+    }
+
+    public ResultSet getJobseekerSkills(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "SELECT * FROM Skills RIGHT JOIN Jobseekers ON Skills.FK_JobseekerID = Jobseekers.PK_JobseekerID";
+        ResultSet resultSet = statement.executeQuery(sql + " where Jobseekers.PK_JobseekerID = " + ID);
+        return resultSet;
+    }
+
+    public ResultSet getJobseekerEducation(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "SELECT * FROM EducationDetails RIGHT JOIN Jobseekers ON EducationDetails.FK_JobseekerID = Jobseekers.PK_JobseekerID";
+        ResultSet resultSet = statement.executeQuery(sql + " where Jobseekers.PK_JobseekerID = " + ID);
+        return resultSet;
+    }
+    
+    public ResultSet getJobseekerExperiences(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "SELECT * FROM Experiences RIGHT JOIN Jobseekers ON Experiences.FK_JobseekerID = Jobseekers.PK_JobseekerID";
+        ResultSet resultSet = statement.executeQuery(sql + " where Jobseekers.PK_JobseekerID = " + ID);
+        return resultSet;
+    }
+
+    public ResultSet getJobseekerCertificates(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "SELECT * FROM ProfessionalCertificates RIGHT JOIN Jobseekers ON ProfessionalCertificates.FK_JobseekerID = Jobseekers.PK_JobseekerID";
+        ResultSet resultSet = statement.executeQuery(sql + " where Jobseekers.PK_JobseekerID = " + ID);
         return resultSet;
     }
 
@@ -114,4 +155,5 @@ public class DataLayer
         jobseeker.JobseekerState + ", JobseekerCountry = " + jobseeker.JobseekerCountry + ") WHERE JobseekerID = " + jobseekerID;
         statement.executeQuery(sql);
     }
+
 }

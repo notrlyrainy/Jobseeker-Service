@@ -3,10 +3,8 @@ package com.jobseeker.jobseeker;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class JobseekerController {
 
@@ -16,8 +14,8 @@ public class JobseekerController {
 		
 		ArrayList<JobseekerDTO> jobseekerDTOs = new ArrayList<JobseekerDTO>();
 		try {
-			BusinessLayer jobbSeekerBusinessLayer = new BusinessLayer();
-			jobseekerDTOs = jobbSeekerBusinessLayer.getAllUsers();
+			BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+			jobseekerDTOs = jobseekerBusinessLayer.getAllUsers();
 		} 
 		catch (SQLException ex) {
 			ex.printStackTrace();
@@ -86,6 +84,7 @@ public class JobseekerController {
 			try {
 				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
 				jobseeker = jobseekerBusinessLayer.getUserByID(ID);
+
 			}
 			catch (SQLException ex) {
 				ex.printStackTrace();
@@ -96,6 +95,95 @@ public class JobseekerController {
 				
 			}
 			return jobseeker;
+
+		}
+
+		
+	@CrossOrigin(origins = "*")
+	@GetMapping("/GetJobseekerSkillsByID")
+		public ArrayList<SkillsDTO> getUserSkillsByID(@RequestParam int ID) throws SQLException
+		{
+			ArrayList<SkillsDTO> skills = new ArrayList<SkillsDTO>();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				skills = jobseekerBusinessLayer.getJobseekerSkills(ID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return skills;
+
+		}
+
+		@CrossOrigin(origins = "*")
+		@GetMapping("/GetJobseekerEducationByID")
+		public ArrayList<EducationDTO> getJobseekerEducationByID(@RequestParam int ID) throws SQLException
+		{
+			ArrayList<EducationDTO> education = new ArrayList<EducationDTO>();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				education = jobseekerBusinessLayer.getJobseekerEducation(ID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return education;
+
+		}
+
+		@CrossOrigin(origins = "*")
+		@GetMapping("/GetJobseekerExperiencesByID")
+		public ArrayList<ExperiencesDTO> GetJobseekerExperiencesByID(@RequestParam int ID) throws SQLException
+		{
+			ArrayList<ExperiencesDTO> experiences = new ArrayList<ExperiencesDTO>();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				experiences = jobseekerBusinessLayer.getJobseekerExperiences(ID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return experiences;
+
+		}
+
+		@CrossOrigin(origins = "*")
+		@GetMapping("/GetJobseekerCertificatesByID")
+		public ArrayList<CertificatesDTO> GetJobseekerCertificatesByID(@RequestParam int ID) throws SQLException
+		{
+			ArrayList<CertificatesDTO> certificates = new ArrayList<CertificatesDTO>();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				certificates = jobseekerBusinessLayer.getJobseekerCertificates(ID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return certificates;
 
 		}
 }

@@ -10,11 +10,12 @@ public class JobseekerDTO
     public String JobseekerLastName;
     public String JobseekerAddress;
     public String JobseekerEmail;
-    public int JobseekerPhoneNumber;
-    public Date JobseekerBirthDate;
+    public String JobseekerTitle;
     public String JobseekerCity;
     public String JobseekerState;
     public String JobseekerCountry;
+    public String JobseekerPhoneNumber;
+    public Date JobseekerBirthDate;
     public Date JobseekerDateUpdated;
     public Date JobseekerDateCreated;
     public Image JobseekerProfilePicture;
