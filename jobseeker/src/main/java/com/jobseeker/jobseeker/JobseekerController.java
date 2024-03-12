@@ -37,25 +37,11 @@ public class JobseekerController {
 		//	throw ;
 			
 	}
-	@PostMapping(value = "/AddJobSeeker",consumes = MediaType.APPLICATION_JSON_VALUE)
-	     
-  	String newJobseeker(@RequestBody JobseekerDTO newJobseeker) {
-		try {
-			ValidateJobSeekerOBject(newJobseeker);
-			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
-			jobSeekerBusinessLayer.addNewJobseeker(newJobseeker);
-		} 
-		//catch()
-		catch (SQLException ex) {
-			ex.printStackTrace(); 
-			//throw new ResponseStatusException(
-           //HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
-		}
-		catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
-		return "successfully added a jobseeker";
-  }
+
+
+
+
+
   @GetMapping("/GetJobseekersByLastName")
 	public ArrayList<JobseekerDTO> getUsersByLastName(@RequestParam String lastName) {
 		
@@ -186,4 +172,120 @@ public class JobseekerController {
 			return certificates;
 
 		}
+
+
+
+
+
+		
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/UpdateJobseeker",consumes = MediaType.APPLICATION_JSON_VALUE)
+	     
+  	String updateJobseeker(@RequestBody JobseekerDTO newJobseeker) {
+		try {
+			ValidateJobSeekerOBject(newJobseeker);
+			System.out.println(newJobseeker.JobseekerBirthDate);
+			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+			jobSeekerBusinessLayer.updateJobseeker(newJobseeker);
+			return "successfully updated jobseeker";
+		} 
+		//catch()
+		catch (SQLException ex) {
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+           //HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+		}
+		catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		return "update unsuccessful";
+  }
+
+
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/UpdateJobseekerSkills",consumes = MediaType.APPLICATION_JSON_VALUE)
+	     
+	String updateJobseekerSkills(@RequestBody SkillsDTO newSkills) {
+		try {
+			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+			jobSeekerBusinessLayer.updateJobseekerSkills(newSkills);
+			return "successfully updated jobseeker skills";
+		} 
+		//catch()
+		catch (SQLException ex) {
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+		//HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+		}
+		catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		return "update unsuccessful";
+	}
+
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/UpdateJobseekerEducation",consumes = MediaType.APPLICATION_JSON_VALUE)
+	     
+	String updateJobseekerEducation(@RequestBody EducationDTO education) {
+		try {
+			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+			jobSeekerBusinessLayer.updateJobseekerEducation(education);
+			return "successfully updated jobseeker skills";
+		} 
+		//catch()
+		catch (SQLException ex) {
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+		//HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+		}
+		catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		return "update unsuccessful";
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/UpdateJobseekerExperiences",consumes = MediaType.APPLICATION_JSON_VALUE)
+	     
+	String updateJobseekerExperiences(@RequestBody ExperiencesDTO experiences) {
+		try {
+			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+			jobSeekerBusinessLayer.updateJobseekerExperiences(experiences);
+			return "successfully updated jobseeker skills";
+		} 
+		//catch()
+		catch (SQLException ex) {
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+		//HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+		}
+		catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		return "update unsuccessful";
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/UpdateJobseekerCertificates",consumes = MediaType.APPLICATION_JSON_VALUE)
+	     
+	String updateJobseekerCertificates(@RequestBody CertificatesDTO certificates) {
+		try {
+			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+			jobSeekerBusinessLayer.updateJobseekerCertificates(certificates);
+			return "successfully updated jobseeker skills";
+		} 
+		//catch()
+		catch (SQLException ex) {
+			ex.printStackTrace(); 
+			//throw new ResponseStatusException(
+		//HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+		}
+		catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		return "update unsuccessful";
+	}
+
 }

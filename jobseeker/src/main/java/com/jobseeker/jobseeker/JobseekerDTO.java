@@ -1,6 +1,8 @@
 package com.jobseeker.jobseeker;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
+
+
 import java.awt.*;
 public class JobseekerDTO
 {
@@ -15,9 +17,10 @@ public class JobseekerDTO
     public String JobseekerState;
     public String JobseekerCountry;
     public String JobseekerPhoneNumber;
-    public Date JobseekerBirthDate;
-    public Date JobseekerDateUpdated;
-    public Date JobseekerDateCreated;
+    //@JsonFormat(pattern="yyyy-MM-dd")
+    public ZonedDateTime JobseekerBirthDate;
+    public ZonedDateTime JobseekerDateUpdated;
+    public ZonedDateTime JobseekerDateCreated;
     public Image JobseekerProfilePicture;
     public JobseekerDTO()
     {

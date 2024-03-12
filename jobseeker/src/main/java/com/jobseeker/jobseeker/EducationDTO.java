@@ -1,11 +1,11 @@
 package com.jobseeker.jobseeker;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 public class EducationDTO {
     public int PK_EDID;
     public String EDInstitutionName;
     public String EDHighestDegree;
-    public Date EDStartingDate;
-    public Date EDEndingDate;
+    public ZonedDateTime EDStartingDate;
+    public ZonedDateTime EDEndingDate;
     public int FK_JobseekerID;
 }

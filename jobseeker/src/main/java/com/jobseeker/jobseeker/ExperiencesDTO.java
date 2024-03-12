@@ -1,12 +1,12 @@
 package com.jobseeker.jobseeker;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 public class ExperiencesDTO {
     public int PK_ExperiencesID;
     public String ExperiencesRoleName;
     public String ExperiencesRoleDescription;
-    public Date ExperiencesStartDate;
-    public Date ExperiencesEndDate;
+    public ZonedDateTime ExperiencesStartDate;
+    public ZonedDateTime ExperiencesEndDate;
     public int FK_JobseekerID;
 }

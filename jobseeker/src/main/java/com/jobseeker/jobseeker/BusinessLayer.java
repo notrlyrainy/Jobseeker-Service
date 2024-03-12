@@ -88,7 +88,7 @@ public class BusinessLayer
         while(resultSet.next())
         {
             SkillsDTO jobseekerSkill = new SkillsDTO();
-            jobseekerSkill.SkillsID = resultSet.getInt("PK_SkillsID");
+            jobseekerSkill.PK_SkillsID = resultSet.getInt("PK_SkillsID");
             jobseekerSkill.SkillsName = resultSet.getString("SkillsName").trim();
             jobseekerSkill.SkillsNumYearsExperience = resultSet.getInt("SkillsNumYearsExperience");
             jobseekerSkill.JobseekerID = resultSet.getInt("FK_JobseekerID");
@@ -101,14 +101,15 @@ public class BusinessLayer
     {
         ResultSet resultSet = sqlDataLayer.getJobseekerEducation(ID);
         ArrayList<EducationDTO> jobseekerEducation = new ArrayList<EducationDTO>();
+        CalendarToDate convert = new CalendarToDate();
         while(resultSet.next())
         {
             EducationDTO jobseekerEdu = new EducationDTO();
             jobseekerEdu.PK_EDID = resultSet.getInt("PK_EDID");
             jobseekerEdu.EDInstitutionName = resultSet.getString("EDInstitutionName").trim();
             jobseekerEdu.EDHighestDegree = resultSet.getString("EDHighestDegree").trim();
-            jobseekerEdu.EDStartingDate = resultSet.getDate("EDStartingDate");
-            jobseekerEdu.EDEndingDate = resultSet.getDate("EDEndingDate");
+            jobseekerEdu.EDStartingDate = convert.SQLToZonedDateTime(resultSet.getDate("EDStartingDate"));
+            jobseekerEdu.EDEndingDate = convert.SQLToZonedDateTime(resultSet.getDate("EDEndingDate"));
             jobseekerEdu.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
             jobseekerEducation.add(jobseekerEdu);
         }
@@ -119,14 +120,15 @@ public class BusinessLayer
     {
         ResultSet resultSet = sqlDataLayer.getJobseekerExperiences(ID);
         ArrayList<ExperiencesDTO> jobseekerExperiences = new ArrayList<ExperiencesDTO>();
+        CalendarToDate convert = new CalendarToDate();
         while(resultSet.next())
         {
             ExperiencesDTO jobseekerExp = new ExperiencesDTO();
             jobseekerExp.PK_ExperiencesID = resultSet.getInt("PK_ExperiencesID");
             jobseekerExp.ExperiencesRoleName = resultSet.getString("ExperiencesRoleName").trim();
             jobseekerExp.ExperiencesRoleDescription = resultSet.getString("ExperiencesRoleDescription").trim();
-            jobseekerExp.ExperiencesStartDate = resultSet.getDate("ExperiencesStartDate");
-            jobseekerExp.ExperiencesEndDate = resultSet.getDate("ExperiencesEndDate");
+            jobseekerExp.ExperiencesStartDate = convert.SQLToZonedDateTime(resultSet.getDate("ExperiencesStartDate"));
+            jobseekerExp.ExperiencesEndDate = convert.SQLToZonedDateTime(resultSet.getDate("ExperiencesEndDate"));
             jobseekerExp.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
             jobseekerExperiences.add(jobseekerExp);
         }
@@ -137,12 +139,13 @@ public class BusinessLayer
     {
         ResultSet resultSet = sqlDataLayer.getJobseekerCertificates(ID);
         ArrayList<CertificatesDTO> jobseekerCertificates = new ArrayList<CertificatesDTO>();
+        CalendarToDate convert = new CalendarToDate();
         while(resultSet.next())
         {
             CertificatesDTO jobseekerCertificate = new CertificatesDTO();
             jobseekerCertificate.PK_ProfessionalCertificateID = resultSet.getInt("PK_ProfessionalCertificateID");
-            jobseekerCertificate.ProfessionalCertificateDateObtained = resultSet.getDate("ProfessionalCertificateDateObtained");
-            jobseekerCertificate.ProfessionalCertificateExpirationDate = resultSet.getDate("ProfessionalCertificateExpirationDate");
+            jobseekerCertificate.ProfessionalCertificateDateObtained = convert.SQLToZonedDateTime(resultSet.getDate("ProfessionalCertificateDateObtained"));
+            jobseekerCertificate.ProfessionalCertificateExpirationDate = convert.SQLToZonedDateTime(resultSet.getDate("ProfessionalCertificateExpirationDate"));
             jobseekerCertificate.ProfessionalCertificate = resultSet.getString("ProfessionalCertificate").trim();
             jobseekerCertificate.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
             jobseekerCertificates.add(jobseekerCertificate);
@@ -154,8 +157,29 @@ public class BusinessLayer
     {
         sqlDataLayer.addJobseeker(jobseeker);
     }
-    public void updateJobseeeker(int jobseekerID, JobseekerDTO jobseeker) throws SQLException
+
+    public void updateJobseeker(JobseekerDTO jobseeker) throws SQLException
     {
-        sqlDataLayer.updateJobseeker(jobseekerID, jobseeker);
+        sqlDataLayer.updateJobseeker(jobseeker);
+    }
+
+    public void updateJobseekerSkills(SkillsDTO skills) throws SQLException
+    {
+        sqlDataLayer.updateJobseekerSkills(skills);
+    }
+
+    public void updateJobseekerEducation(EducationDTO education) throws SQLException
+    {
+        sqlDataLayer.updateJobseekerEducation(education);
+    }
+    
+    public void updateJobseekerExperiences(ExperiencesDTO experiences) throws SQLException
+    {
+        sqlDataLayer.updateJobseekerExperiences(experiences);
+    }
+    
+    public void updateJobseekerCertificates(CertificatesDTO certificates) throws SQLException
+    {
+        sqlDataLayer.updateJobseekerCertificates(certificates);
     }
 }
