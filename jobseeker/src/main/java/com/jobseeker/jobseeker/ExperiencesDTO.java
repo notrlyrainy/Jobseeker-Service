@@ -9,4 +9,9 @@ public class ExperiencesDTO {
     public ZonedDateTime ExperiencesStartDate;
     public ZonedDateTime ExperiencesEndDate;
     public int FK_JobseekerID;
+
+    public ExperiencesDTO()
+    {
+        
+    }
 }

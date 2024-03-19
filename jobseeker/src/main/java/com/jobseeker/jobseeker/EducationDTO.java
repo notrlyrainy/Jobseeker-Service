@@ -8,4 +8,9 @@ public class EducationDTO {
     public ZonedDateTime EDStartingDate;
     public ZonedDateTime EDEndingDate;
     public int FK_JobseekerID;
+
+    public EducationDTO()
+    {
+        
+    }
 }

@@ -78,6 +78,14 @@ public class DataLayer
             jobseeker.JobseekerTitle = resultSet.getString("JobseekerTitle");
         return jobseeker;
     }
+    public ResultSet getJobseekerResume(int ID) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+        String sql = "Select * from Resume RIGHT JOIN Jobseekers ON Resume.FK_JobseekerID = Jobseeker.PK_JobseekerID";
+        ResultSet resultSet = statement.executeQuery(sql + " where FK_JobseekerID = " + ID);
+        return resultSet;
+        
+    }
     /*
      * I am looking to connect with JobSeekers 
      * who possess advanced Java skills
@@ -183,23 +191,35 @@ public class DataLayer
         statement.executeQuery(sql);
     }
 
-
-    public void updateJobseekerEducation(EducationDTO education) throws SQLException
+    public void updateJobseekerResume(ResumeDTO resume) throws SQLException
     {
         Statement statement = this.connection.createStatement();
 
-        String sql = "UPDATE Education SET EDInstitutionName = " 
-        + (education.EDInstitutionName == null ? null : "'" + education.EDInstitutionName + "'")  + 
-        ", EDHighestDegree = " + 
-        (education.EDHighestDegree == null ? null : "'" + education.EDHighestDegree + "'")
-        + ", EDStartingDate = " +
-        (education.EDStartingDate == null ? null : "'" + education.EDStartingDate + "'")
-        + ", EDEndingDate = " + 
-        (education.EDEndingDate == null ? null : "'" + education.EDEndingDate + "'")
-        + " WHERE PK_EDID = " + education.PK_EDID;
-        
+        String sql = "UPDATE Skills SET SkillsName = " 
+        + (resume.Resume == null ? null : "'" + resume.Resume + "'")
+        + " WHERE PK_SkillsID = " + resume.PK_ResumeID;
+
         System.out.println(sql);
         statement.executeQuery(sql);
+    }
+
+
+    public void updateJobseekerEducation(ArrayList<EducationDTO> educationArray) throws SQLException
+    {
+        Statement statement = this.connection.createStatement();
+
+        for(int i = 0; i < educationArray.size(); i++)
+        {
+            EducationDTO education = educationArray.get(i);
+            String sql = "UPDATE EducationDetails SET EDInstitutionName = " 
+            + (education.EDInstitutionName == null ? null : "'" + education.EDInstitutionName + "'")  + 
+            ", EDHighestDegree = " + 
+            (education.EDHighestDegree == null ? null : "'" + education.EDHighestDegree + "'")
+            + " WHERE PK_EDID = " + education.PK_EDID;
+            
+            System.out.println(sql);
+            statement.executeQuery(sql);
+        }
     }
 
 

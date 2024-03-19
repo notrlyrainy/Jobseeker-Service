@@ -37,15 +37,15 @@ class JobseekerApplicationTests {
 	void GetJobseekerByIDTest() {
 		JobseekerDTO jobseeker = new JobseekerDTO();
 		JobseekerDTO jobseekerDummyData = JobSeekerIDDummy();
-		String dateCreated = "";
+		//String dateCreated = "";
 		try{
 			DataLayer sqlDataLayer = mock(DataLayer.class);
 			when(sqlDataLayer.getUserByID(anyInt())).thenReturn(jobseekerDummyData);
 
 			BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
 			jobseeker = jobseekerBusinessLayer.getUserByID(10);
-			CalendarToDate converter = new CalendarToDate();
-			dateCreated = converter.dateConversionToSQLDate(jobseeker.JobseekerDateCreated);		
+			//CalendarToDate converter = new CalendarToDate();
+			//dateCreated = converter.zonedDateTimeToSQLString(jobseeker.JobseekerDateCreated);		
 			assertEquals("Raju", jobseeker.JobseekerFirstName, "verification success");
 
 		}
@@ -81,8 +81,8 @@ class JobseekerApplicationTests {
 		jobseekerDTO.JobseekerMiddleName = "";
 		jobseekerDTO.JobseekerLastName = "Yang"; 
 		jobseekerDTO.JobseekerAddress = "Street Address";
-		jobseekerDTO.JobseekerDateUpdated = new Date(2024, 2, 2);
-		jobseekerDTO.JobseekerDateCreated = new Date(2023, 11, 23);
+		//jobseekerDTO.JobseekerDateUpdated = new Date(2024, 2, 2);
+		//jobseekerDTO.JobseekerDateCreated = new Date(2023, 11, 23);
 		return jobseekerDTO;
 	}
 

@@ -5,4 +5,9 @@ public class SkillsDTO {
     public String SkillsName;
     public int SkillsNumYearsExperience;
     public int JobseekerID;
+
+    public SkillsDTO()
+    {
+        
+    }
 }

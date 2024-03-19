@@ -86,6 +86,30 @@ public class JobseekerController {
 
 		
 	@CrossOrigin(origins = "*")
+	@GetMapping("/GetResumeByID")
+		public ResumeDTO getJobseekerResume(@RequestParam int ID) throws SQLException
+		{
+			ResumeDTO resume = new ResumeDTO();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				resume = jobseekerBusinessLayer.getJobseekerResume(ID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+				throw ex;
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			return resume;
+
+		}
+
+
+
+	@CrossOrigin(origins = "*")
 	@GetMapping("/GetJobseekerSkillsByID")
 		public ArrayList<SkillsDTO> getUserSkillsByID(@RequestParam int ID) throws SQLException
 		{
@@ -200,6 +224,28 @@ public class JobseekerController {
 		}
 		return "update unsuccessful";
   }
+	
+
+  @CrossOrigin(origins = "*")
+  @PostMapping(value = "/UpdateJobseekerResume",consumes = MediaType.APPLICATION_JSON_VALUE)
+	   
+	String updateResume(@RequestBody ResumeDTO resume) {
+	  try {
+		  BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
+		  jobSeekerBusinessLayer.updateJobseekerResume(resume);
+		  return "successfully updated jobseeker";
+	  } 
+	  //catch()
+	  catch (SQLException ex) {
+		  ex.printStackTrace(); 
+		  //throw new ResponseStatusException(
+		 //HttpStatus.BAD_REQUEST, "Invalid Data", ex); 
+	  }
+	  catch (ClassNotFoundException ex) {
+		  ex.printStackTrace();
+	  }
+	  return "update unsuccessful";
+}
 
 
 
@@ -228,7 +274,7 @@ public class JobseekerController {
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/UpdateJobseekerEducation",consumes = MediaType.APPLICATION_JSON_VALUE)
 	     
-	String updateJobseekerEducation(@RequestBody EducationDTO education) {
+	String updateJobseekerEducation(@RequestBody ArrayList<EducationDTO> education) {
 		try {
 			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
 			jobSeekerBusinessLayer.updateJobseekerEducation(education);

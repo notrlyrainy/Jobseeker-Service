@@ -7,4 +7,9 @@ public class CertificatesDTO {
     public ZonedDateTime ProfessionalCertificateDateObtained;
     public ZonedDateTime ProfessionalCertificateExpirationDate;
     public int FK_JobseekerID;
+
+    public CertificatesDTO()
+    {
+        
+    }
 }

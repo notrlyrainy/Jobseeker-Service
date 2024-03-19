@@ -81,6 +81,17 @@ public class BusinessLayer
         return jobseeker;
 
     }
+
+    public ResumeDTO getJobseekerResume(int ID) throws SQLException
+    {
+        ResultSet resultSet = sqlDataLayer.getJobseekerResume(ID);
+        ResumeDTO resume = new ResumeDTO();
+        resultSet.next();
+        resume.PK_ResumeID = resultSet.getInt("PK_ResumeID");
+        resume.Resume = resultSet.getString("Resume");
+        resume.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
+        return resume;
+    }
     public ArrayList<SkillsDTO> getJobseekerSkills(int ID) throws SQLException
     {
         ResultSet resultSet = sqlDataLayer.getJobseekerSkills(ID);
@@ -163,12 +174,17 @@ public class BusinessLayer
         sqlDataLayer.updateJobseeker(jobseeker);
     }
 
+    public void updateJobseekerResume(ResumeDTO resume) throws SQLException
+    {
+        sqlDataLayer.updateJobseekerResume(resume);
+    }
+
     public void updateJobseekerSkills(SkillsDTO skills) throws SQLException
     {
         sqlDataLayer.updateJobseekerSkills(skills);
     }
 
-    public void updateJobseekerEducation(EducationDTO education) throws SQLException
+    public void updateJobseekerEducation(ArrayList<EducationDTO> education) throws SQLException
     {
         sqlDataLayer.updateJobseekerEducation(education);
     }
