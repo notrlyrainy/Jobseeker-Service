@@ -24,6 +24,10 @@ public class DataLayer
         this.connection = connection;
     }
     
+
+    
+    //GET SQL STATEMENTS
+
     public ArrayList<JobseekerDTO> getAllUsersByDTO() throws SQLException
     {
         ArrayList<JobseekerDTO> jobseekers = new ArrayList<JobseekerDTO>();
@@ -81,7 +85,7 @@ public class DataLayer
     public ResultSet getJobseekerResume(int ID) throws SQLException
     {
         Statement statement = this.connection.createStatement();
-        String sql = "Select * from Resume RIGHT JOIN Jobseekers ON Resume.FK_JobseekerID = Jobseeker.PK_JobseekerID";
+        String sql = "Select * from Resume RIGHT JOIN Jobseekers ON Resume.FK_JobseekerID = Jobseekers.PK_JobseekerID";
         ResultSet resultSet = statement.executeQuery(sql + " where FK_JobseekerID = " + ID);
         return resultSet;
         
@@ -131,6 +135,9 @@ public class DataLayer
         return resultSet;
     }
 
+
+    //ADD SQL STATEMENTS
+
     public void addJobseeker(JobseekerDTO jobseeker) throws SQLException
     {
        CalendarToDate date = new CalendarToDate();
@@ -144,6 +151,22 @@ public class DataLayer
         
         statement.execute(sql);
     }
+
+    public void addJobseekerResume(String fileName, byte[] fileContent, int resumeID) throws SQLException
+    {
+        String sql = "Insert into Resume values(" 
+        + fileName + ", " + fileContent + ", " + "')";
+        
+
+        Statement statement = this.connection.createStatement();
+        //System.out.println(sql);
+        
+        statement.execute(sql);
+    }
+
+
+
+    //UPDATE SQL STATEMENTS
 
     public void updateJobseeker(JobseekerDTO jobseeker) throws SQLException
     {
@@ -191,16 +214,18 @@ public class DataLayer
         statement.executeQuery(sql);
     }
 
-    public void updateJobseekerResume(ResumeDTO resume) throws SQLException
+    public void updateJobseekerResume(String fileName, byte[] fileContent, int resumeID) throws SQLException
     {
         Statement statement = this.connection.createStatement();
 
-        String sql = "UPDATE Skills SET SkillsName = " 
-        + (resume.Resume == null ? null : "'" + resume.Resume + "'")
-        + " WHERE PK_SkillsID = " + resume.PK_ResumeID;
+        String sql = "UPDATE Resume SET ResumeFileName = " 
+        + (fileName == null ? null : "'" + fileName + "'")
+        + ", ResumeFileContent = " + 
+        (fileContent == null ? null : "Cast('" + fileContent + "' As varbinary(max))")
+        + " WHERE PK_ResumeID = " + resumeID;
 
         System.out.println(sql);
-        statement.executeQuery(sql);
+        statement.execute(sql);
     }
 
 

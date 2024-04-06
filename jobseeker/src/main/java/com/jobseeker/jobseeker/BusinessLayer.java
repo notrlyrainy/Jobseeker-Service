@@ -2,6 +2,9 @@ package com.jobseeker.jobseeker;
 
 import java.sql.*;
 import java.util.*;
+import java.io.*;
+
+import org.springframework.web.multipart.MultipartFile;
 
 
 public class BusinessLayer
@@ -88,7 +91,8 @@ public class BusinessLayer
         ResumeDTO resume = new ResumeDTO();
         resultSet.next();
         resume.PK_ResumeID = resultSet.getInt("PK_ResumeID");
-        resume.Resume = resultSet.getString("Resume");
+        resume.ResumeFileName = resultSet.getString("ResumeFileName").trim();
+        resume.ResumeFileContent = (byte[])resultSet.getBytes("ResumeFileContent");
         resume.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
         return resume;
     }
@@ -174,9 +178,11 @@ public class BusinessLayer
         sqlDataLayer.updateJobseeker(jobseeker);
     }
 
-    public void updateJobseekerResume(ResumeDTO resume) throws SQLException
+    public void updateJobseekerResume(MultipartFile resumeFile, int resumeID) throws SQLException, IOException
     {
-        sqlDataLayer.updateJobseekerResume(resume);
+        String fileName = resumeFile.getOriginalFilename();
+        byte[] fileContent = resumeFile.getBytes();
+        sqlDataLayer.updateJobseekerResume(fileName, fileContent, resumeID);
     }
 
     public void updateJobseekerSkills(SkillsDTO skills) throws SQLException

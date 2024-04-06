@@ -1,12 +1,19 @@
 package com.jobseeker.jobseeker;
 
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class JobseekerController {
+
+
+	//GET SECTION 
+
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("/GetAllJobSeekers")
@@ -28,24 +35,10 @@ public class JobseekerController {
 	}
 
 
-	private void ValidateJobSeekerOBject(JobseekerDTO jobSeeker)
-	{
-		//if(jobSeeker.JobseekerCity==null)
-		//	throw ;
-		
-		//if(jobSeeker.JobseekerState==null)
-		//	throw ;
-			
-	}
-
-
-
-
 
   @GetMapping("/GetJobseekersByLastName")
 	public ArrayList<JobseekerDTO> getUsersByLastName(@RequestParam String lastName) {
 		
-		///Validate(lastName)
 		ArrayList<JobseekerDTO> jobseekerDTOs = new ArrayList<JobseekerDTO>();
 		try {
 			BusinessLayer jobbSeekerBusinessLayer = new BusinessLayer();
@@ -84,7 +77,7 @@ public class JobseekerController {
 
 		}
 
-		
+	/*
 	@CrossOrigin(origins = "*")
 	@GetMapping("/GetResumeByID")
 		public ResumeDTO getJobseekerResume(@RequestParam int ID) throws SQLException
@@ -106,7 +99,29 @@ public class JobseekerController {
 			return resume;
 
 		}
+	*/
 
+	@GetMapping("/GetResumeByID")
+    public ResponseEntity<byte[]> getResumeByID(@RequestParam int resumeID) {
+
+		ResumeDTO resume = new ResumeDTO();
+			try {
+				BusinessLayer jobseekerBusinessLayer = new BusinessLayer();
+				resume = jobseekerBusinessLayer.getJobseekerResume(resumeID);
+
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+			catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+				
+			}
+			
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=" + resume.ResumeFileName)
+                    .body(resume.ResumeFileContent);
+        }
 
 
 	@CrossOrigin(origins = "*")
@@ -200,14 +215,13 @@ public class JobseekerController {
 
 
 
-
+//UPDATE SECTION
 		
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/UpdateJobseeker",consumes = MediaType.APPLICATION_JSON_VALUE)
 	     
   	String updateJobseeker(@RequestBody JobseekerDTO newJobseeker) {
 		try {
-			ValidateJobSeekerOBject(newJobseeker);
 			System.out.println(newJobseeker.JobseekerBirthDate);
 			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
 			jobSeekerBusinessLayer.updateJobseeker(newJobseeker);
@@ -227,15 +241,19 @@ public class JobseekerController {
 	
 
   @CrossOrigin(origins = "*")
-  @PostMapping(value = "/UpdateJobseekerResume",consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/UpdateJobseekerResume",headers = "content-type=multipart/form-data")
 	   
-	String updateResume(@RequestBody ResumeDTO resume) {
-	  try {
+	String updateResume(@RequestParam("resumeFile") MultipartFile resumeFile, int resumeID) {
+
+		try {
 		  BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
-		  jobSeekerBusinessLayer.updateJobseekerResume(resume);
+		  jobSeekerBusinessLayer.updateJobseekerResume(resumeFile, resumeID);
 		  return "successfully updated jobseeker";
-	  } 
-	  //catch()
+	  }
+	  catch(IOException ex)
+	  {
+		ex.printStackTrace();
+	  }
 	  catch (SQLException ex) {
 		  ex.printStackTrace(); 
 		  //throw new ResponseStatusException(
@@ -245,6 +263,8 @@ public class JobseekerController {
 		  ex.printStackTrace();
 	  }
 	  return "update unsuccessful";
+
+	
 }
 
 
