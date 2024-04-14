@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
 /**
  * Write a description of class SQLDataLayer here.
  *
@@ -217,15 +218,23 @@ public class DataLayer
     public void updateJobseekerResume(String fileName, byte[] fileContent, int resumeID) throws SQLException
     {
         Statement statement = this.connection.createStatement();
-
+        /*
         String sql = "UPDATE Resume SET ResumeFileName = " 
         + (fileName == null ? null : "'" + fileName + "'")
         + ", ResumeFileContent = " + 
-        (fileContent == null ? null : "Cast('" + fileContent + "' As varbinary(max))")
+        (fileContent == null ? null : "LOAD_FILE('" + fileContent + "')")
         + " WHERE PK_ResumeID = " + resumeID;
+        */
+        String sql = "UPDATE Resume SET ResumeFileName = ?, ResumeFileContent = ? WHERE PK_ResumeID = ?";
+        try (PreparedStatement prepared = connection.prepareStatement(sql)) {
+            prepared.setString(1, fileName);
+            prepared.setBytes(2, fileContent);
+            prepared.setInt(3, resumeID);
+            prepared.executeUpdate();
+        }
 
-        System.out.println(sql);
-        statement.execute(sql);
+        System.out.println(fileContent);
+        //statement.execute(sql);
     }
 
 

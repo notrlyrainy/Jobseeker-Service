@@ -101,6 +101,7 @@ public class JobseekerController {
 		}
 	*/
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/GetResumeByID")
     public ResponseEntity<byte[]> getResumeByID(@RequestParam int resumeID) {
 
