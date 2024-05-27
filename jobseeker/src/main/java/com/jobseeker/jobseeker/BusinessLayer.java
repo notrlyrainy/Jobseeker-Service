@@ -106,7 +106,7 @@ public class BusinessLayer
             jobseekerSkill.PK_SkillsID = resultSet.getInt("PK_SkillsID");
             jobseekerSkill.SkillsName = resultSet.getString("SkillsName").trim();
             jobseekerSkill.SkillsNumYearsExperience = resultSet.getInt("SkillsNumYearsExperience");
-            jobseekerSkill.JobseekerID = resultSet.getInt("FK_JobseekerID");
+            jobseekerSkill.FK_JobseekerID = resultSet.getInt("FK_JobseekerID");
             jobseekerSkills.add(jobseekerSkill);
         }
         return jobseekerSkills;

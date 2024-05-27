@@ -101,8 +101,9 @@ public class JobseekerController {
 		}
 	*/
 
-	@CrossOrigin(origins = "*")
+//	@CrossOrigin(origins = "*")
 	@GetMapping("/GetResumeByID")
+	@CrossOrigin(exposedHeaders = "Content-Disposition") // Expose Content-Disposition header
     public ResponseEntity<byte[]> getResumeByID(@RequestParam int resumeID) {
 
 		ResumeDTO resume = new ResumeDTO();

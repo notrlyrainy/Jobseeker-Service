@@ -77,6 +77,7 @@ public class DataLayer
             jobseeker.JobseekerAddress = resultSet.getString("JobseekerAddress").trim();
             jobseeker.JobseekerPhoneNumber = resultSet.getString("JobseekerPhoneNumber").trim();
             jobseeker.JobseekerBirthDate = convert.SQLToZonedDateTime(resultSet.getDate("JobseekerBirthDate"));
+            jobseeker.JobseekerState = resultSet.getString("JobseekerState").trim();
             jobseeker.JobseekerCity = resultSet.getString("JobseekerCity").trim();
             jobseeker.JobseekerCountry = resultSet.getString("JobseekerCountry").trim();
             jobseeker.JobseekerEmail = resultSet.getString("JobseekerEmail").trim();
