@@ -1,0 +1,47 @@
+name: Trigger auto deployment for developer-service
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ jobseeker-service-code ]
+    paths:
+    - '**'
+    - '.github/workflows/developer-service-AutoDeployTrigger-26f1a2ee-7aa5-4917-b95d-b9b864dd3bd8.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.DEVELOPERSERVICE_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.DEVELOPERSERVICE_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.DEVELOPERSERVICE_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: jobseekerregistry2.azurecr.io
+          registryUsername: ${{ secrets.DEVELOPERSERVICE_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.DEVELOPERSERVICE_REGISTRY_PASSWORD }}
+          containerAppName: developer-service
+          resourceGroup: myResourceGroup
+          imageToBuild: jobseekerregistry2.azurecr.io/developer-service:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
