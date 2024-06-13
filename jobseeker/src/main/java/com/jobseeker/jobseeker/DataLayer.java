@@ -258,10 +258,10 @@ public class DataLayer
     }
 
 
-    public void updateJobseekerExperiences(ExperiencesDTO experiences) throws SQLException
+    public void updateJobseekerExperiences(Experiences1DTO experiences) throws SQLException
     {
         Statement statement = this.connection.createStatement();
-        
+        CalendarToDate convert = new CalendarToDate();
         String sql = "UPDATE Experiences SET ExperiencesRoleName = " 
         + (experiences.ExperiencesRoleName == null ? null : "'" + experiences.ExperiencesRoleName + "'")  + 
         ", ExperiencesRoleDescription = " + 
@@ -273,7 +273,7 @@ public class DataLayer
         + " WHERE PK_ExperiencesID = " + experiences.PK_ExperiencesID;
 
         System.out.println(sql);
-        statement.executeQuery(sql);
+        statement.execute(sql);
     }
     
 

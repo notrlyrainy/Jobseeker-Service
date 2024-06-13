@@ -195,7 +195,7 @@ public class BusinessLayer
         sqlDataLayer.updateJobseekerEducation(education);
     }
     
-    public void updateJobseekerExperiences(ExperiencesDTO experiences) throws SQLException
+    public void updateJobseekerExperiences(Experiences1DTO experiences) throws SQLException
     {
         sqlDataLayer.updateJobseekerExperiences(experiences);
     }

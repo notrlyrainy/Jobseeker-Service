@@ -317,7 +317,7 @@ public class JobseekerController {
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/UpdateJobseekerExperiences",consumes = MediaType.APPLICATION_JSON_VALUE)
 	     
-	String updateJobseekerExperiences(@RequestBody ExperiencesDTO experiences) {
+	String updateJobseekerExperiences(@RequestBody Experiences1DTO experiences) {
 		try {
 			BusinessLayer jobSeekerBusinessLayer = new BusinessLayer();
 			jobSeekerBusinessLayer.updateJobseekerExperiences(experiences);
